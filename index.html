@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #D5006D, #6A1B9A); /* Rosa e Roxo */
+            background: linear-gradient(135deg, #D5006D, #6A1B9A);
             color: #ffffff;
             text-align: center;
             padding: 20px;
@@ -25,6 +25,11 @@
             font-size: 2.5em;
             margin-bottom: 20px;
         }
+        .container {
+            max-height: 100vh; /* Altura máxima para a rolagem */
+            overflow-y: auto; /* Permitir rolagem vertical */
+            width: 100%; /* Largura total */
+        }
         .mensagem {
             font-size: 1.5em;
             margin: 20px 0;
@@ -35,6 +40,9 @@
             margin-right: auto;
             line-height: 1.5;
             animation: fadeIn 1s forwards;
+            padding: 10px; /* Espaçamento interno */
+            border: 1px solid #ffffff; /* Borda para destacar */
+            border-radius: 10px; /* Borda arredondada */
         }
         .carrossel {
             position: relative;
@@ -92,7 +100,6 @@
         .navegacao button:hover {
             background-color: rgba(255, 255, 255, 1);
         }
-        /* Indicadores do carrossel */
         .indicadores {
             display: flex;
             justify-content: center;
@@ -116,6 +123,9 @@
         }
         /* Estilos para dispositivos menores */
         @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
             h1 {
                 font-size: 2em;
             }
@@ -123,14 +133,13 @@
                 font-size: 1.2em;
             }
             .carrossel {
-                max-width: 90%;
+                max-width: 95%;
             }
             button {
-                padding: 12px 24px; /* Aumentar o tamanho do botão */
-                font-size: 1em; /* Manter tamanho legível */
+                padding: 10px 20px;
+                font-size: 0.9em;
             }
         }
-        /* Estilo para o diálogo */
         .dialogo {
             background-color: rgba(0, 0, 0, 0.9);
             color: #D5006D;
@@ -143,9 +152,8 @@
             z-index: 10;
             display: none;
         }
-        /* Estilo para o modal de mensagem */
         .modal {
-            display: none; /* Escondido inicialmente */
+            display: none;
             position: fixed;
             z-index: 100;
             left: 0;
@@ -190,36 +198,37 @@
     </div>
 
     <div id="mensagemTela" class="hidden">
-        <div class="carrossel">
-            <div class="fotos" id="fotosContainer">
-                <img src="foto1.jpeg" alt="Foto 1">
-                <img src="foto2.jpeg" alt="Foto 2">
-                <img src="foto3.jpeg" alt="Foto 3">
-                <img src="foto4.jpeg" alt="Foto 4">
-                <img src="foto5.jpeg" alt="Foto 5">
-                <img src="foto6.jpeg" alt="Foto 6">
-                <img src="foto7.jpeg" alt="Foto 7">
-                <img src="foto8.jpeg" alt="Foto 8">
+        <div class="container">
+            <div class="carrossel">
+                <div class="fotos" id="fotosContainer">
+                    <img src="foto1.jpeg" alt="Foto 1">
+                    <img src="foto2.jpeg" alt="Foto 2">
+                    <img src="foto3.jpeg" alt="Foto 3">
+                    <img src="foto4.jpeg" alt="Foto 4">
+                    <img src="foto5.jpeg" alt="Foto 5">
+                    <img src="foto6.jpeg" alt="Foto 6">
+                    <img src="foto7.jpeg" alt="Foto 7">
+                    <img src="foto8.jpeg" alt="Foto 8">
+                </div>
+                <div class="navegacao">
+                    <button aria-label="Foto anterior" onclick="mudarFoto(-1)">&#10094;</button>
+                    <button aria-label="Próxima foto" onclick="mudarFoto(1)">&#10095;</button>
+                </div>
             </div>
-            <div class="navegacao">
-                <button aria-label="Foto anterior" onclick="mudarFoto(-1)">&#10094;</button>
-                <button aria-label="Próxima foto" onclick="mudarFoto(1)">&#10095;</button>
+            <div class="indicadores">
+                <span class="active" onclick="mudarFoto(0)"></span>
+                <span onclick="mudarFoto(1)"></span>
+                <span onclick="mudarFoto(2)"></span>
             </div>
+            <h1>Meu amor,</h1>
+            <div class="mensagem" id="mensagem">
+                Eu só queria te dizer que você é a mistura perfeita de todas as coisas que eu precisava na minha vida: amor, carinho e aquele jeitinho que só você tem de me fazer rir até das coisas mais bobas.<br><br>
+                Estar com você é como ganhar na loteria, só que muito melhor, porque na loteria o prêmio acaba, e com você o prêmio é eterno. Você é minha sorte grande, minha paz e também meu caos gostoso (porque você sempre dá um jeito de bagunçar meu coração do jeito certo).<br><br>
+                Obrigado por cuidar de mim porque esse ano foi complicadinho e mesmo assim você não me abandonou em nenhum momento.<br><br>
+                Obrigada por existir e por ser minha pessoa favorita.
+            </div>
+            <input type="file" id="fotoInput" accept="image/*" onchange="adicionarFoto()" />
         </div>
-        <div class="indicadores">
-            <span class="active" onclick="mudarFoto(0)"></span>
-            <span onclick="mudarFoto(1)"></span>
-            <span onclick="mudarFoto(2)"></span>
-        </div>
-        <h1>Meu amor,</h1>
-        <p class="mensagem" id="mensagem">
-            Eu só queria te dizer que você é a mistura perfeita de todas as coisas que eu precisava na minha vida: amor, carinho e aquele jeitinho que só você tem de me fazer rir até das coisas mais bobas.<br><br>
-            Estar com você é como ganhar na loteria, só que muito melhor, porque na loteria o prêmio acaba, e com você o prêmio é eterno. Você é minha sorte grande, minha paz e também meu caos gostoso (porque você sempre dá um jeito de bagunçar meu coração do jeito certo).<br><br>
-            Obrigado por cuidar de mim porque esse ano foi complicadinho e mesmo assim você não me abandonou em nenhum momento.<br><br>
-            Obrigada por existir e por ser minha pessoa favorita.
-        </p>
-        
-        <input type="file" id="fotoInput" accept="image/*" onchange="adicionarFoto()" />
     </div>
 
     <div id="dialogo" class="dialogo">
@@ -229,7 +238,6 @@
         <button onclick="talvez()">Talvez</button>
     </div>
 
-    <!-- Modal -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <p>Talvez uma porra, abre logo, vá! 😠</p>
@@ -241,46 +249,45 @@
         let indiceFoto = 0;
 
         function perguntar() {
-            document.getElementById("dialogo").style.display = "block"; // Mostra o diálogo
+            document.getElementById("dialogo").style.display = "block";
         }
 
         function irParaMensagem() {
             document.getElementById("inicial").classList.add("hidden");
-            document.getElementById("dialogo").style.display = "none"; // Esconde o diálogo
+            document.getElementById("dialogo").style.display = "none";
             document.getElementById("mensagemTela").classList.remove("hidden");
-            document.getElementById("mensagem").style.opacity = 1; // Revela a mensagem
+            document.getElementById("mensagem").style.opacity = 1;
             atualizarCarrossel();
         }
 
         function nao() {
-            document.getElementById("dialogo").style.display = "none"; // Esconde o diálogo
-            window.open("https://www.youtube.com/shorts/N9zgRln72Uw", "_blank"); // Abre o link em uma nova aba
+            document.getElementById("dialogo").style.display = "none";
+            window.open("https://www.youtube.com/shorts/N9zgRln72Uw", "_blank");
         }
 
         function talvez() {
-            document.getElementById("dialogo").style.display = "none"; // Esconde o diálogo
-            document.getElementById("modal").style.display = "flex"; // Mostra o modal
+            document.getElementById("dialogo").style.display = "none";
+            document.getElementById("modal").style.display = "flex";
         }
 
         function fecharModal() {
-            document.getElementById("modal").style.display = "none"; // Esconde o modal
+            document.getElementById("modal").style.display = "none";
         }
 
         function mudarFoto(direcao) {
             const fotos = document.querySelectorAll("#fotosContainer img");
             if (direcao === 1 && indiceFoto === fotos.length - 1) {
-                // Se está na última foto e a direção é para frente, volte para a primeira
                 indiceFoto = 0;
             } else {
-                indiceFoto = (indiceFoto + direcao + fotos.length) % fotos.length; // Mantém o índice dentro do limite
+                indiceFoto = (indiceFoto + direcao + fotos.length) % fotos.length;
             }
             atualizarCarrossel();
-            atualizarIndicadores(); // Atualiza os indicadores
+            atualizarIndicadores();
         }
 
         function atualizarCarrossel() {
             const fotos = document.querySelector("#fotosContainer");
-            const larguraFoto = document.querySelector(".carrossel").offsetWidth; // Largura do carrossel
+            const larguraFoto = document.querySelector(".carrossel").offsetWidth;
             fotos.style.transform = `translateX(-${indiceFoto * larguraFoto}px)`;
         }
 
@@ -306,7 +313,7 @@
                 }
 
                 reader.readAsDataURL(file);
-                input.value = ''; // Limpa o input após adicionar a foto
+                input.value = '';
             }
         }
     </script>
